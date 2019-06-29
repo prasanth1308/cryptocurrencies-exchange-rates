@@ -34,13 +34,12 @@
 
 .topheader {
   background-color: #174c80;
-  height: 3rem;
-  display: flex;
-  justify-content: center;
-   align-items: center;
 }
 .navbar {
   background-color: #174c80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .navbar-item {
   color: #fff;

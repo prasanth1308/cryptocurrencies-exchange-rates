@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
-import Today from './Today';
+import Today from './Today/Today';
+import History from './History/History';
 
 class CryptoPriceView extends Component {
     render() {
@@ -21,7 +22,7 @@ class CryptoPriceView extends Component {
                     </div>
                     <div className="results--section__inner">
                         <Today />
-                        {/* <History /> */}
+                        <History />
                     </div>
                 </section>
             </div>
