@@ -5,13 +5,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -36,30 +36,69 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  close: {
+    padding: theme.spacing(0.5),
+  },
 }));
 
 export default function SignIn(props) {
   const classes = useStyles();
   const { setUserLogin } = props;
+  const [open, setOpen] = React.useState(false);
   const onFormSubmit = (event) => {
     event.preventDefault();
     try {
       let email = document.getElementById('email').value || '';
       let password = document.getElementById('password').value || '';
-      if(email === 'demo'&& password === 'demo'){
+      if (email === 'demo' && password === 'demo') {
         localStorage.setItem('isUserLoggedIn', true);
         setUserLogin();
       } else {
-          alert("Invalid Credentials");
+        setOpen(true);
+        // alert("Invalid Credentials");
       }
     } catch (error) {
       console.log('onFormSubmit', error)
     }
   };
 
+  function handleClose(event, reason) {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  }
+
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        variant="error"
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">Invalid Credentials</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            className={classes.close}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -100,7 +139,7 @@ export default function SignIn(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={onFormSubmit}
+          // onClick={onFormSubmit}
           >
             Sign In
           </Button>
