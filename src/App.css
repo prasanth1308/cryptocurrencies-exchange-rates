@@ -31,3 +31,25 @@
     transform: rotate(360deg);
   }
 }
+
+.topheader {
+  background-color: #174c80;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+   align-items: center;
+}
+.navbar {
+  background-color: #174c80;
+}
+.navbar-item {
+  color: #fff;
+}
+.results--section {
+  padding: 20px 0px;
+  margin-top: 40px;
+}
+h1 {
+  text-align: center;
+  font-size: 30px;
+}
