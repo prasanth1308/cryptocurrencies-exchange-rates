@@ -2,8 +2,32 @@ import React, { Component } from 'react';
 import '../App.css';
 import Today from './Today/Today';
 import History from './History/History';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+// const useStyles = makeStyles(theme => ({
+//     button: {
+//         margin: theme.spacing(1),
+//     },
+//     input: {
+//         display: 'none',
+//     },
+// }));
+// const classes = useStyles();
 
 class CryptoPriceView extends Component {
+    constructor(props){
+        super(props);
+    }
+    onLogoutClick = (event) => {
+        event.preventDefault();
+        try {  
+            localStorage.clear();
+            this.props.removeUserLogin();
+          } catch (error) {
+            console.log('onLogoutClick', error)
+          }
+    }
     render() {
         return (
             <div className="">
@@ -13,6 +37,9 @@ class CryptoPriceView extends Component {
                             <div className="navbar-brand">
                                 <span className="navbar-item">Cryptocurrencies Exchange Rates</span>
                             </div>
+                            <Button color="primary" className='logout-btn' onClick={this.onLogoutClick}>
+                                Logout
+                            </Button>
                         </nav>
                     </header>
                 </div>

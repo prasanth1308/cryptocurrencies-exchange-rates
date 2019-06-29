@@ -52,3 +52,9 @@ h1 {
   text-align: center;
   font-size: 30px;
 }
+.navbar-brand {
+  flex-grow: 1;
+}
+.navbar .logout-btn {
+  color: #ffffff;
+}

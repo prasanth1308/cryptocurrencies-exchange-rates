@@ -38,8 +38,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
+  const { setUserLogin } = props;
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    try {
+      let email = document.getElementById('email').value || '';
+      let password = document.getElementById('password').value || '';
+      if(email === 'demo'&& password === 'demo'){
+        localStorage.setItem('isUserLoggedIn', true);
+        setUserLogin();
+      } else {
+          alert("Invalid Credentials");
+      }
+    } catch (error) {
+      console.log('onFormSubmit', error)
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -51,7 +67,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={onFormSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -84,6 +100,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            // onClick={onFormSubmit}
           >
             Sign In
           </Button>

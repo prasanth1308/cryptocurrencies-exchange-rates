@@ -1,14 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import Login from './Login/Login';
 import CryptoPriceView from './CryptoPriceView/CryptoPriceView';
 import './App.css';
 
 function App() {
+  const isLogged = localStorage.getItem('isUserLoggedIn') || false;
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(isLogged);
+  useEffect(() => {
+    try {
+      let isLogged = localStorage.getItem('isUserLoggedIn') || false;
+      setIsUserLoggedIn(isLogged);
+    } catch (error) {
+      console.log('App-useEffect[]', error)
+    }
+  }, []);
+  const setUserLogin = (event) => {
+    try {
+      setIsUserLoggedIn(true);
+    } catch (error) {
+      console.log('setUserLogin', error)
+    }
+  };
+  const removeUserLogin = (event) => {
+    try {
+      setIsUserLoggedIn(false);
+    } catch (error) {
+      console.log('removeUserLogin', error)
+    }
+  };
   return (
     <div className="App">
-      {/* <Login /> */}
-      <CryptoPriceView />
+      {!isUserLoggedIn && <Login setUserLogin={setUserLogin}/>
+        || <CryptoPriceView removeUserLogin={removeUserLogin}/>}
     </div>
   );
 }
